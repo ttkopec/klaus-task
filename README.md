@@ -1,8 +1,7 @@
 # klaus-task
 
-[!WARNING]
-Even though the solution is complete and the basic functionality is delivered according to the task description, the solution for sure can be further improved and polished.
-Please see the [TODO](#todo) section for more details.
+> [!WARNING]
+> Even though the solution is complete and the basic functionality is delivered according to the task description, the solution for sure can be further improved and polished. Please see the [TODO](#todo) section for more details.
 
 ## Overview
 
