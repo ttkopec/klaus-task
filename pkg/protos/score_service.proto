@@ -1,0 +1,78 @@
+syntax = "proto3";
+
+package score_service;
+option go_package = "./gen";
+
+import "google/protobuf/timestamp.proto";
+
+// START: Request types
+message TimeRange {
+  google.protobuf.Timestamp start = 1;
+  google.protobuf.Timestamp end = 2;
+}
+
+message AggregatedCategoryScoreRequest {
+  TimeRange period = 1;
+}
+
+message ScoresByTicketRequest {
+  TimeRange period = 1;
+}
+
+message OverallQualityScoreRequest {
+  TimeRange period = 1;
+}
+
+message PeriodOverPeriodScoreChangeRequest {
+  TimeRange currentPeriod = 1;
+  TimeRange previousPeriod = 2;
+}
+// END: Request types
+
+// START: Response types
+message ScorePerPeriod {
+  string period = 1;
+  double score = 2;
+}
+
+message CategoryScores {
+  string category = 1;
+  repeated ScorePerPeriod scoresPerPeriod = 2;
+}
+
+message AggregatedCategoryScoresResponse {
+  repeated CategoryScores scores = 1;
+}
+
+message TicketScore {
+  string ticketId = 1;
+  map<string, double> categoryScores = 2;
+}
+
+message ScoresByTicketResponse {
+  repeated TicketScore ticketScores = 1;
+}
+
+message OverallQualityScoreResponse {
+  double overallScore = 1;
+}
+
+message PeriodOverPeriodScoreChangeResponse {
+  double percentageChange = 1;
+}
+// END: Response types
+
+service ScoreService {
+  // Aggregated Category Scores Over a Period of Time
+  rpc GetAggregatedCategoryScores(AggregatedCategoryScoreRequest) returns (AggregatedCategoryScoresResponse);
+
+  // Scores by Ticket
+  rpc GetScoresByTicket(ScoresByTicketRequest) returns (ScoresByTicketResponse);
+
+  // Overall Quality Score
+  rpc GetOverallQualityScore(OverallQualityScoreRequest) returns (OverallQualityScoreResponse);
+
+  // Period Over Period Score Change
+  rpc GetPeriodOverPeriodScoreChange(PeriodOverPeriodScoreChangeRequest) returns (PeriodOverPeriodScoreChangeResponse);
+}
+

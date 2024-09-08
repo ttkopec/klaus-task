@@ -1,0 +1,9 @@
+with-expecter: true
+dir: "{{.InterfaceDir}}/mocks"
+outpkg: "mocks"
+packages:
+    github.com/ttkopec/klaus-task/internal/db:
+        config:
+        interfaces:            
+            Service:
+                config:
